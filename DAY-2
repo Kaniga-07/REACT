@@ -1,1 +1,42 @@
+App.js
+import React from 'react';
+import passmessage from './passMessage';
+import FailMessage from './FailMessage';
+function App(props)
+{
+  const isPass =props.isPass;
 
+    if (isPass) {
+      return <passMessage/>;
+    } 
+    return <FailMessage/>;
+}
+export default App;
+
+
+passMessage.js
+import React from 'react';
+class passmessage extends React.Component{
+  render()
+  {
+    return<h1>Welcome Message!!!</h1>
+  }
+}
+export default passmessage;
+
+
+failMessage.js
+import React from 'react';
+class FailMessage extends React.Component {
+  render() {
+    return <h1>Your execution failed. Better luck next time.</h1>;
+  }
+}
+export default FailMessage;
+
+
+index.js
+import ReactDOM from 'react-dom';
+import App from './App';
+ReactDOM.render(<App isPass={false} />, 
+  document.getElementById('root')); 
