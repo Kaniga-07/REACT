@@ -1,0 +1,25 @@
+// App.js
+import React from 'react';
+import StyledButton from './Styledbutton';
+
+const App = () => {
+  return (
+    <div>
+      <StyledButton />
+    </div>
+  );
+};
+
+export default App;
+  
+
+
+//Styledbutton.js
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+  color:black;
+  background-color:red;
+`;
+
+export default StyledButton;
