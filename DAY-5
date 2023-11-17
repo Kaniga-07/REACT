@@ -1,0 +1,52 @@
+//ImpureFunction
+
+import React, { useState, useEffect } from 'react';
+
+const ImpureFunction = ({ initialvalue }) => {
+  const [value, setValue] = useState(initialvalue);
+
+  useEffect(() => {
+    setValue(initialvalue * 2);
+  }, [initialvalue]);
+
+  return <div>{value}</div>;
+};
+export default ImpureFunction;
+
+// Purecomponent
+
+import React from 'react';
+const Purecomponent = ({ value }) => {
+  const doubledValue = value * 2;
+
+  return <p>Doubled Value: {doubledValue}</p>;
+};
+export default Purecomponent;
+
+
+//Errorboundary
+
+
+import React, { useState, useEffect } from 'react';
+
+const ErrorBoundary = ({ children }) => {
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const Errorlistener = (event) => {
+      setError(event.error || new Error('unknown error'));
+    };
+
+    window.addEventListener('error', Errorlistener);
+
+    return () => {
+      window.removeEventListener('error', Errorlistener);
+    };
+  }, []); 
+  if (error) {
+    return <h1>Something went wrong : {error.message}</h1>;
+  }
+
+  return children;
+};
+export default ErrorBoundary;
