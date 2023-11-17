@@ -1,0 +1,52 @@
+import logo from './logo.svg';
+import './App.css';
+
+function App() {
+  const containerStyle = {
+    textAlign: 'center', // Center align the content
+  };
+
+  return (
+    <div style={containerStyle}>
+      <h1>SRI KRISHNA COLLEGE OF ENGINEERING AND TECHNOLOGY</h1>
+      <img
+        src="https://www.gradez.in/engineering/images/sri%20krishna-1600-800.jpg"
+        alt="Sri krishna"
+        width={1600}
+        height={700}
+      ></img>
+      <ol type="A">
+        <li>TEACHERS</li>
+        <li>STUDENTS</li>
+        <li>OFFICIALS</li>
+      </ol>
+      <form>
+        <div>
+          <label>Enter your name:</label>
+          <input type="text" name="username" />
+        </div>
+        <div>
+          <label>Enter your dob</label>
+          <input type="number" name="DOB" />
+        </div>
+        <div>
+          <label>Enter your password</label>
+          <input type="password" name="Password" />
+        </div>
+        <input type="submit" name="Submit" />
+      </form>
+      <div>
+        <select>
+          <option>AI&DS</option>
+          <option>CSE</option>
+          <option>CSBS</option>
+        </select>
+      </div>
+      <div>
+        <textarea>Content of the textarea</textarea>
+      </div>
+    </div>
+  );
+}
+
+export default App;
