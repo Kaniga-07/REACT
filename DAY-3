@@ -1,0 +1,31 @@
+import React from 'react';
+class App extends React.component{
+  render()
+  {
+    function App(props)
+  { 
+    const ispass = props.ispass;
+    if(ispass)
+    {
+        return <h1>It is true</h1>;
+    }
+else
+  {
+	return <h1>It is false</h1>;
+   }
+  }
+      
+};
+export default App;
+
+
+import React from 'react';
+class App extends React.component{
+  render()
+  {
+    return<h1>Welcome Message!!!</h1>
+  }
+   
+};
+
+export default App;
