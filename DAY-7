@@ -1,0 +1,169 @@
+//APP.JS
+import react, { useState } from 'react';
+import AxiosPost from './components/Axios/axiospost';
+import AxiosDelete from './components/Axios/axiosdelete';
+import FetchApi from './components/Axios/FetchApi';
+import AxiosGet from './components/Axios/AxiosGet';
+function App()
+{
+ return(
+  <div>
+    <AxiosGet/>
+    <AxiosPost/>
+    <AxiosDelete/>
+    <FetchApi/>
+  </div>
+ )
+    
+}
+export default App;
+
+
+//AxiosGet.JS
+
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'; 
+const AxiosGet = () => {
+  const [books, setBooks] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/books");
+        setBooks(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Book</th>
+            <th>Author name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {books.map((book) => (
+            <tr key={book.id}>
+              <td>{book.id}</td>
+              <td>{book.title}</td>
+              <td>{book.author}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+export default AxiosGet;
+
+
+
+//AxiosPost.js
+import React, { useRef } from 'react';
+import axios from 'axios';
+
+const AxiosPost = () => {
+  const bookAuthorRef = useRef(null);
+  const bookTitleRef = useRef(null);
+  const bookIdRef = useRef(null);
+
+  const handlePost = async () => {
+    const data = {
+      id: bookIdRef.current.value,
+      title: bookTitleRef.current.value,
+      author: bookAuthorRef.current.value,
+    };
+
+    await postData(data);
+  };
+
+  const postData = async (data) => {
+    try {
+      const response = await axios.post("http://localhost:8080/books", data); 
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div>
+      <input type='text' ref={bookIdRef} />
+      <input type='text' ref={bookTitleRef} />
+      <input type='text' ref={bookAuthorRef} />
+      <button onClick={handlePost}>Post</button>
+    </div>
+  );
+};
+
+export default AxiosPost;
+
+
+//AxiosDelete.js
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const AxiosDelete = () => {
+  const [bookId, setBookId] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(`http://localhost:8080/books/${bookId}`);
+      setMessage(`Book with ID ${bookId} deleted successfully`);
+    } catch (error) {
+      setMessage(`Error deleting book with ID ${bookId}`);
+    }
+  };
+
+  return (
+    <div>
+      <h2>Delete Books</h2>
+      <label>
+        Enter Book ID to Delete:
+        <input
+          type='text'
+          value={bookId}
+          onChange={(e) => setBookId(e.target.value)}
+        />
+      </label>
+      <button onClick={handleDelete}>Delete Book</button>
+      {message && <p>{message}</p>}
+    </div>
+  );
+};
+
+export default AxiosDelete;
+
+
+FetchApi.js
+import React from 'react';
+
+const FetchApi = () => {
+  const handleFetch = () => {
+    fetch("http://localhost:8080/books")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+     
+        console.error('fetcherror', error);
+      });
+  };
+
+  return (
+    <div>
+      <button onClick={handleFetch}>Fetch Value</button>
+    </div>
+  );
+};
+
+export default FetchApi;
