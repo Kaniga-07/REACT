@@ -1,0 +1,121 @@
+//CW
+
+import React, { useState, useEffect } from 'react';
+
+const App = () => {
+  const [message, setMessage] = useState("Hello dear one learning React");
+
+  useEffect(() => {
+    console.log('useEffect hook called');
+
+    const timeoutId = setTimeout(() => {
+      setMessage("Great. This is the time to learn about HOOKS");
+    }, 2000);
+
+    return () => {
+      // Cleanup function to clear the timeout if the component unmounts
+      clearTimeout(timeoutId);
+    };
+  }, []); // Empty dependency array ensures the effect runs only once, similar to componentDidMount
+
+  return (
+    <div>
+      <h1>{message}</h1>
+    </div>
+  );
+};
+
+export default App;
+
+
+//PAH
+// App.js
+import React from 'react';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import CartPage from './CartPage';
+
+function App() {
+  return (
+    <Provider store={store}>
+      <div className="App">
+        <h1>E-Commerce App</h1>
+        <CartPage />
+      </div>
+    </Provider>
+  );
+}
+
+export default App;
+// CartPage.js
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart, removeFromCart } from './redux/actions';
+
+const CartPage = () => {
+  const cartItems = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (item) => {
+    dispatch(addToCart(item));
+  };
+
+  const handleRemoveFromCart = (itemId) => {
+    dispatch(removeFromCart(itemId));
+  };
+
+  return (
+    <div>
+      <h2>Your Cart</h2>
+      <ul>
+        {cartItems.map((item) => (
+          <li key={item.id}>
+            {item.name} - ${item.price}
+            <button onClick={() => handleRemoveFromCart(item.id)}>
+              Remove from Cart
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default CartPage;
+// actions.js
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+
+export const addToCart = (item) => ({
+  type: ADD_TO_CART,
+  payload: item,
+});
+
+export const removeFromCart = (itemId) => ({
+  type: REMOVE_FROM_CART,
+  payload: itemId,
+});
+
+// reducers.js
+import { ADD_TO_CART, REMOVE_FROM_CART } from './actions';
+
+const cartReducer = (state = [], action) => {
+  switch (action.type) {
+    case ADD_TO_CART:
+      return [...state, action.payload];
+    case REMOVE_FROM_CART:
+      return state.filter(item => item.id !== action.payload);
+    default:
+      return state;
+  }
+};
+
+export default cartReducer;
+
+// store.js
+import { createStore } from 'redux';
+import cartReducer from './reducers';
+
+const store = createStore(cartReducer);
+
+export default store;
