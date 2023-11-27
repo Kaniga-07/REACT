@@ -1,9 +1,11 @@
 body {
-  font-family: Arial, sans-serif;
+  height: 100%;
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
   background-color: #f4f4f4;
-}
+  
+ }
 
 .App {
   text-align: center;
@@ -16,28 +18,10 @@ body {
   color: white;
   font-size: 200%;
 }
-
 header {
   background-color: #333;
   color: #fff;
-  padding: 10px 0;
 }
-
-nav {
-  background-color: #444;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin-right: 20px;
-}
-
 a {
   display: block;
   color: white;
@@ -45,16 +29,13 @@ a {
   padding: 14px 16px;
   text-decoration: none;
 }
-
 a:hover {
   background-color: #ddd;
   color: black;
 }
-
 .container {
   margin: 20px;
 }
-
 h2 {
   color: #333;
 }
